@@ -39,6 +39,7 @@ class Solution {
             for(int j=0;j<grid[0].length;j++){
                 if(grid[i][j]==1 && !visited[i][j]){
                     bfs(grid,visited,new int[]{i,j},s);
+                    return s[0];
                 }
             }
         }
