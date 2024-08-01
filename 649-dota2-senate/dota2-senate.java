@@ -1,45 +1,34 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
     public String predictPartyVictory(String senate) {
-        Queue<Character> q = new LinkedList<>();
-        char[] ca = senate.toCharArray();
-
-        // Initialize the queue with the given senate characters
-        for (char c : ca) {
+        Queue<Character> q=new LinkedList<>();
+        char[] ca=senate.toCharArray();
+        for(char c:ca){
             q.add(c);
         }
-
-        // Tracks the number of bans pending for each party
-        int radiantBan = 0;
-        int direBan = 0;
-
-        // Keep iterating until one party remains
-        while (q.size() > 1) {
-            int size = q.size();
-
-            for (int i = 0; i < size; i++) {
-                char ch = q.poll();
-                if (ch == 'R') {
-                    if (radiantBan > 0) {
-                        radiantBan--;
-                    } else {
-                        direBan++;
-                        q.add(ch);
-                    }
-                } else {
-                    if (direBan > 0) {
-                        direBan--;
-                    } else {
-                        radiantBan++;
-                        q.add(ch);
+        int d=0;
+        int r=0;
+        while(!q.isEmpty()){
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                char ch=q.poll();
+                if(ch=='R'){
+                    if(r>0) r--;
+                    else{
+                        d++;
+                        q.add('R');
                     }
                 }
+                else{
+                    if(d>0) d--;
+                    else{
+                        r++;
+                        q.add('D');
+                    }
+                }
+                if(r>q.size()) return "Dire";
+                if(d>q.size()) return "Radiant";
             }
-            if (q.stream().allMatch(c -> c == 'R')) return "Radiant";
-            if (q.stream().allMatch(c -> c == 'D')) return "Dire";
         }
-        return q.peek() == 'R' ? "Radiant" : "Dire";
+        return q.poll()=='R' ? "Radiant" : "Dire";
     }
 }
