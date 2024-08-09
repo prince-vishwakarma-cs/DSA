@@ -29,8 +29,8 @@ class Solution {
 
     public int numMagicSquaresInside(int[][] grid) {
         int ans = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        for (int i = 0; i < grid.length-2; i++) {
+            for (int j = 0; j < grid[0].length-2; j++) {
                 if (isEqual(grid, i, j))
                     ans++;
             }
