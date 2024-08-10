@@ -37,7 +37,6 @@ class Solution {
         for(int i = m - 1; i >= 0; i--) {
             for(int j = n - 1; j >= 0; j--) {
                 int currWidth = gridright[i][j];
-                
                 for(int h = 0; h < griddown[i][j]; h++) {
                     currWidth = Math.min(currWidth, gridright[i + h][j]);
                     int area = (h + 1) * currWidth;
