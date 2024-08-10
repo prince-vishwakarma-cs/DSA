@@ -1,13 +1,12 @@
 class Solution {
     public int maximalRectangle(char[][] matrix) {
         int m = matrix.length;
-        if (m == 0) return 0;  // edge case if matrix is empty
+        if (m == 0) return 0;
         int n = matrix[0].length;
         
         int[][] gridright = new int[m][n];
         int[][] griddown = new int[m][n];
         
-        // Populate the gridright array
         for(int i = m - 1; i >= 0; i--) {
             for(int j = n - 1; j >= 0; j--) {
                 if(matrix[i][j] == '0') 
@@ -18,8 +17,6 @@ class Solution {
                     gridright[i][j] = 1;
             }
         }
-        
-        // Populate the griddown array
         for(int i = m - 1; i >= 0; i--) {
             for(int j = n - 1; j >= 0; j--) {
                 if(matrix[i][j] == '0') 
@@ -32,8 +29,6 @@ class Solution {
         }
         
         int ans = 0;
-        
-        // Calculate the maximal rectangle
         for(int i = m - 1; i >= 0; i--) {
             for(int j = n - 1; j >= 0; j--) {
                 int currWidth = gridright[i][j];
