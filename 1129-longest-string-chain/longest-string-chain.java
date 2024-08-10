@@ -18,23 +18,23 @@ class Solution {
         
         return true;
     }
-    
-    public int lis(String[] words, int i, int last, Integer[][] dp) {
-        if (i >= words.length) return 0;
-        if (dp[i][last + 1] != null) return dp[i][last + 1];
-        
+    public int lis(String[] nums, int i, int last, Integer[][] dp) {
+        if (i >= nums.length)
+            return 0;
+        if (dp[i][last + 1] != null)
+            return dp[i][last + 1];
         int ans = 0;
-        if (last == -1 || can(words[last], words[i])) {
-            ans = Math.max(lis(words, i + 1, i, dp) + 1, ans);
+        if (last == -1 || can(nums[last],nums[i])) {
+            ans = Math.max(lis(nums, i + 1, i, dp) + 1, ans);
         }
-        ans = Math.max(lis(words, i + 1, last, dp), ans);
+        ans = Math.max(lis(nums, i + 1, last, dp), ans);
         dp[i][last + 1] = ans;
         return dp[i][last + 1];
     }
 
     public int longestStrChain(String[] words) {
         Arrays.sort(words, (a, b) -> a.length() - b.length());
-        Integer[][] dp = new Integer[words.length][words.length + 1];
+        Integer[][] dp = new Integer[words.length][words.length+1];
         return lis(words, 0, -1, dp);
     }
 }
