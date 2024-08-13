@@ -14,7 +14,6 @@ class Solution {
         }
     }    
     public int makeConnected(int n, int[][] connections) {
-        if(connections.length<n-1) return -1;
         int[] A=new int[n];
         for(int i=0;i<n;i++){
             A[i]=i;
@@ -24,12 +23,13 @@ class Solution {
             int node2=edge[1];
             unionSet(A,node1,node2);
         }
+        int parent=-1;
         int ans=0;
         for(int i=0;i<n;i++){
             if(find(A,i)==i){
                 ans++;
             }
         }
-        return ans-1;
+        return connections.length+1<n ? -1 : ans-1;
     }
 }
