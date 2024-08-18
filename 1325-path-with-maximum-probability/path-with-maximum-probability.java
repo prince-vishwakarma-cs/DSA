@@ -25,11 +25,11 @@ class Solution {
                 
                 if (ans[neighbourNode] < d * dist) {
                     ans[neighbourNode] = d * dist;
-                    pq.add(new double[]{ans[neighbourNode], neighbourNode}); // Add updated distance
+                    pq.add(new double[]{ans[neighbourNode], neighbourNode});
                 }
             }
         }
-        return ans[end_node]==Double.MIN_VALUE?0.0:ans[end_node];
+        return 0.0;
     }
 }
 
