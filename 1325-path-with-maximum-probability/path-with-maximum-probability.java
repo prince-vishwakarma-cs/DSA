@@ -18,7 +18,7 @@ class Solution {
             double[] top=pq.poll();
             int node=(int)top[1];
             double d=top[0];
-
+            if(node==end_node) return d;
             for (double[] neighbor : lt.get(node)) {
                 int neighbourNode =(int) neighbor[1];
                 double dist = neighbor[0];
