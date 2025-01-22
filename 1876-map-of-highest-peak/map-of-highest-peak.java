@@ -3,16 +3,12 @@ class Solution {
         int m=isWater.length;
         int n=isWater[0].length;
         Queue<int[]> q=new LinkedList<>();
-        int[][] ans=new int[m][n];
-        for(int[] arr:ans){
-            Arrays.fill(arr,-1);
-        }
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(isWater[i][j]==1){
-                    ans[i][j]=0;
+                    isWater[i][j]=0;
                     q.add(new int[]{i,j});
-                }
+                } else isWater[i][j]=-1;
             }
         }
         int[][] dirs=new int[][]{{0,-1},{0,1},{1,0},{-1,0}};
@@ -23,12 +19,12 @@ class Solution {
             for(int[] dir:dirs){
                 int newx=x+dir[0];
                 int newy=y+dir[1];
-                if(newx>=0 && newy>=0 && newx<m && newy<n && ans[newx][newy]==-1){
-                    ans[newx][newy]=ans[x][y]+1;
+                if(newx>=0 && newy>=0 && newx<m && newy<n && isWater[newx][newy]==-1){
+                    isWater[newx][newy]=isWater[x][y]+1;
                     q.add(new int[]{newx,newy});
                 }
             }
         }
-        return ans;
+        return isWater;
     }
 }
