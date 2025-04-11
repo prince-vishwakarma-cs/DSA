@@ -1,19 +1,15 @@
 class Solution {
-    public boolean isSymmetric(int n){
+    public boolean isSymmetric(int n) {
         String str = String.valueOf(n);
-        int l =str.length();
-        if(l%2==1) return false;
-        int i=0;
-        int sum=0;
-        while(i<(l/2)){
-            sum+=str.charAt(i)-'0';
-            i++;
+        int len = str.length();
+        if (len % 2 != 0) return false;
+
+        int sum = 0;
+        for (int i = 0; i < len / 2; i++) {
+            sum += str.charAt(i) - str.charAt(len - 1 - i);
         }
-        while(i<l){
-            sum-=str.charAt(i)-'0';
-            i++;
-        }
-        return sum==0;
+
+        return sum == 0;
     }
     public int countSymmetricIntegers(int low, int high) {
         int count=0;
