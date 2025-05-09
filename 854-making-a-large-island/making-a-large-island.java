@@ -13,7 +13,6 @@ class Solution {
             }
         }
 
-        // After BFS, count the size of each component
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
