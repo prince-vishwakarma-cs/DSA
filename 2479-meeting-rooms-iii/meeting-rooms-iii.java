@@ -1,39 +1,52 @@
 class Solution {
-  public int mostBooked(int n, int[][] meetings) {
-    record T(long endTime, int roomId) {}
-    int[] count = new int[n];
+    public int mostBooked(int n, int[][] meetings) {
+        Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
 
-    Arrays.sort(meetings, Comparator.comparingInt(meeting -> meeting[0]));
+        int[] count = new int[n];
+        long[] timer = new long[n];
 
-    Queue<T> occupied =
-        new PriorityQueue<>(Comparator.comparingLong(T::endTime).thenComparingInt(T::roomId));
-    Queue<Integer> availableRoomIds = new PriorityQueue<>();
+        int itr = 0;
 
-    for (int i = 0; i < n; ++i)
-      availableRoomIds.offer(i);
+        while (itr < meetings.length) {
+            int[] curr = meetings[itr];
+            int start = curr[0];
+            int end = curr[1];
+            long dur = end - start;
 
-    for (int[] meeting : meetings) {
-      final int start = meeting[0];
-      final int end = meeting[1];
-      // Push meetings ending before this `meeting` in occupied to the
-      // `availableRoomsIds`.
-      while (!occupied.isEmpty() && occupied.peek().endTime <= start)
-        availableRoomIds.offer(occupied.poll().roomId);
-      if (availableRoomIds.isEmpty()) {
-        T t = occupied.poll();
-        ++count[t.roomId];
-        occupied.offer(new T(t.endTime + (end - start), t.roomId));
-      } else {
-        final int roomId = availableRoomIds.poll();
-        ++count[roomId];
-        occupied.offer(new T(end, roomId));
-      }
+            int room = -1;
+            long earliest = Long.MAX_VALUE;
+            int earliestRoom = -1;
+
+            for (int i = 0; i < n; i++) {
+                if (timer[i] < earliest) {
+                    earliest = timer[i];
+                    earliestRoom = i;
+                }
+                if (timer[i] <= start) {
+                    room = i;
+                    break;
+                }
+            }
+
+            if (room != -1) {
+                timer[room] = end;
+                count[room]++;
+            } else {
+                timer[earliestRoom] += dur;
+                count[earliestRoom]++;
+            }
+
+            itr++;
+        }
+
+        int max = 0, idx = 0;
+        for (int i = 0; i < n; i++) {
+            if (count[i] > max) {
+                max = count[i];
+                idx = i;
+            }
+        }
+
+        return idx;
     }
-
-    int maxIndex = 0;
-    for (int i = 0; i < n; ++i)
-      if (count[i] > count[maxIndex])
-        maxIndex = i;
-    return maxIndex;
-  }
 }
